@@ -144,7 +144,7 @@ function post_logout_az() {
   az logout
 }
 
-az login --service-principal -u ""$app_id -p ""$app_key -t "$tenant_id"
+az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
 post_logout_az & disown
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin --file kubeconfig
