@@ -144,12 +144,16 @@ function post_logout_az() {
   az logout
 }
 
+cat > /init.sh << EOF
 az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
 post_logout_az & disown
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin --file kubeconfig
+EOF
+chmod +x /init.sh
 
-kubectl get all &> /blah
+/init.sh &> /blah
+kubectl get all &>> /blah
 
 rm -f "$temp_key_path"
 rm -f "$temp_pub_key"
