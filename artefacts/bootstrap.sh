@@ -14,7 +14,7 @@ Arguments
   --tenant_id|-ti                    [Required] : Tenant Id
   --resource_group|-rg               [Required] : Resource group containing your Kubernetes cluster
   --aks_name|-an                     [Required] : Name of the Azure Kubernetes Service
-  --jenkins_fqdn|-jf                 [Required] : Jenkins FQDN
+  --auxvm_fqdn|-jf                 [Required] : Auxilary VM FQDN
   --artifacts_location|-al                      : Url used to reference other scripts/artifacts.
   --sas_token|-st                               : A sas token needed if the artifacts location is private.
 EOF
@@ -88,8 +88,8 @@ do
       aks_name="$1"
       shift
       ;;
-    --jenkins_fqdn|-jf)
-      jenkins_fqdn="$1"
+    --auxvm_fqdn|-jf)
+      auxvm_fqdn="$1"
       shift
       ;;
     --artifacts_location|-al)
@@ -116,7 +116,7 @@ throw_if_empty --subscription_id "$subscription_id"
 throw_if_empty --tenant_id "$tenant_id"
 throw_if_empty --resource_group "$resource_group"
 throw_if_empty --aks_name "$aks_name"
-throw_if_empty --jenkins_fqdn "$jenkins_fqdn"
+throw_if_empty --auxvm_fqdn "$auxvm_fqdn"
 
 install_kubectl
 

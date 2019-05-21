@@ -8,7 +8,7 @@
       "sshPublicKey": {
         "value": "GEN-SSH-PUB-KEY"
       },
-      "jenkinsDnsPrefix": {
+      "auxvmDnsPrefix": {
         "value": "GEN-UNIQUE"
       },
       "servicePrincipalAppId": {
