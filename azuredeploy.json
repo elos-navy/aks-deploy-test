@@ -86,8 +86,8 @@
     "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg')]",
     "aksName": "aks",
     "aksDnsPrefix": "[concat('aks', uniqueString(resourceGroup().id))]",
-    "_artifactsLocation": "https://raw.githubusercontent.com/Azure/jenkins/master",
-    "_extensionScript": "301-jenkins-aks-zero-downtime-deployment.sh",
+    "_artifactsLocation": "https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master",
+    "_extensionScript": "bootstrap.sh",
     "_artifactsLocationSasToken": ""
   },
   "resources": [
@@ -159,7 +159,7 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "[concat(variables('_artifactsLocation'), '/quickstart_templates/zero_downtime_deployment/', variables('_extensionScript'), variables('_artifactsLocationSasToken'))]"
+                "[concat(variables('_artifactsLocation'), '/artefacts/', variables('_extensionScript'), variables('_artifactsLocationSasToken'))]"
               ]
             },
             "protectedSettings": {
