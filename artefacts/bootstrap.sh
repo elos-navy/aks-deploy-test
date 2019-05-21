@@ -55,7 +55,7 @@ function install_az() {
     echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/azure-cli/ wheezy main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
     sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
     sudo apt-get install -y apt-transport-https
-    sudo apt-get -y update && sudo apt-get install -y azure-cli
+    sudo apt-get -y update && sudo apt-get install -y --allow-unauthenticated azure-cli
   fi
 }
 
@@ -144,15 +144,20 @@ function post_logout_az() {
   az logout
 }
 
-cat > /init.sh << EOF
 az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
 post_logout_az & disown
+az account set --subscription "$subscription_id"
+az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin --file kubeconfig
+
+cat > /init.sh << EOF
+az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
+#post_logout_az & disown
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin --file kubeconfig
 EOF
 chmod +x /init.sh
 
-/init.sh &> /blah
+#/init.sh &> /blah
 kubectl get all &>> /blah
 
 rm -f "$temp_key_path"
