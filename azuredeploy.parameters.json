@@ -16,6 +16,12 @@
       },
       "servicePrincipalAppKey": {
         "value": "GEN-PASSWORD"
+      },
+      "acrName": {
+        "value": "GEN-UNIQUE"
+      },
+      "acrAdminUserEnabled": {
+        "value": false
       }
     }
   }
