@@ -54,14 +54,14 @@
     },
     "servicePrincipalAppId": {
       "type": "string",
-      "defaultValue": "2c2fd683-112f-40c5-8e00-c65509f6771e",
+      "defaultValue": "ddaac2d7-ef70-4ae0-8bc9-b4c2b92abe03",
       "metadata": {
         "description": "Service Principal App ID (also called Client ID) that has contributor rights to the subscription used for this deployment. It is used by the Kubernetes cluster to dynamically manage resources (e.g. user-defined load balancers)."
       }
     },
     "servicePrincipalAppKey": {
       "type": "securestring",
-      "defaultValue": "AMA3DsGRwW?d*7fCpz54AUZzZPiT.DG]",
+      "defaultValue": "/z.t1Inb9JlzLdWjZe/4hZ:mgG4L]5w/",
       "metadata": {
         "description": "Service Principal App Key (also called Client Secret) that has contributor rights to the subscription used for this deployment. It is used by the Kubernetes cluster to dynamically manage resources (e.g. user-defined load balancers)."
       }

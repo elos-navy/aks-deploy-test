@@ -7,15 +7,19 @@
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
-## Zistenie podporovanych verzii kubernetes
+## Prerekvizity
 
-Dolezite, pretoze moze nastat error 'The value of parameter orchestratorProfile.OrchestratorVersion is invalid'
+* Registracia aplikacie (service principal) + priradenie role. Do formularu je nutne ziskat udaje ID a Secret key vytvorenej registracie v AD. Navod ako na to: https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+
+## Troubleshooting
+
+### Podporovana verzia kubernetes
+
+Provisioning moze skoncit nasledujucou chybou: 'The value of parameter orchestratorProfile.OrchestratorVersion is invalid'. Vtedy je nutne pozriet sa na podporovane verzie kubernetes v regionu:
 
 ```
 az aks get-versions --location westeurope --output table
 ```
 
-## Vytvorenie/zistenie service principal ID/Key
-
-https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal
+A podporovanu verziu zadat do formularu. Podporovane verzie sa casom menia!
 
