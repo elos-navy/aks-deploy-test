@@ -84,7 +84,7 @@
     },
     "acrAdminUserEnabled": {
       "type": "bool",
-      "defaultValue": false,
+      "defaultValue": true,
       "metadata": {
         "description": "Enable admin user that have push / pull permission to the registry."
       }
@@ -191,7 +191,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\"')]"
+              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\" &>/deployment.log')]"
             }
           }
         }
