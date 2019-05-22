@@ -47,7 +47,7 @@
     },
     "auxvmDnsPrefix": {
       "type": "string",
-      "defaultValue": "ls-bootstrap-test",
+      "defaultValue": "auxvm-1",
       "metadata": {
         "description": "Unique DNS Name prefix for the Public IP used to access the Auxiliary Virtual Machine. Azure will form the final DNS name as '<prefix>.<region>.cloudapp.azure.com'."
       }
@@ -104,15 +104,15 @@
   },
   "variables": {
     "resourcePrefix": "auxvm",
-    "OSDiskName": "[concat(variables('resourcePrefix'), '-os-disk')]",
-    "nicName": "[concat(variables('resourcePrefix'), '-nic')]",
-    "subnetName": "[concat(variables('resourcePrefix'), '-subnet')]",
-    "publicIPAddressName": "[concat(variables('resourcePrefix'), '-ip')]",
-    "vmName": "[concat(variables('resourcePrefix'), '-vm')]",
-    "virtualNetworkName": "[concat(variables('resourcePrefix'), '-vnet')]",
-    "vmExtensionName": "[concat(variables('resourcePrefix'), '-init')]",
-    "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg')]",
-    "aksName": "aks",
+    "OSDiskName": "[concat(variables('resourcePrefix'), '-os-disk-', uniqueString(resourceGroup().id))]",
+    "nicName": "[concat(variables('resourcePrefix'), '-nic-', uniqueString(resourceGroup().id))]",
+    "subnetName": "[concat(variables('resourcePrefix'), '-subnet-', uniqueString(resourceGroup().id))]",
+    "publicIPAddressName": "[concat(variables('resourcePrefix'), '-ip-', uniqueString(resourceGroup().id))]",
+    "vmName": "[concat(variables('resourcePrefix'), '-vm-', uniqueString(resourceGroup().id))]",
+    "virtualNetworkName": "[concat(variables('resourcePrefix'), '-vnet-', uniqueString(resourceGroup().id))]",
+    "vmExtensionName": "[concat(variables('resourcePrefix'), '-bootstrap-', uniqueString(resourceGroup().id))]",
+    "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg-', uniqueString(resourceGroup().id))]",
+    "aksName": "aks-cluster",
     "aksDnsPrefix": "[concat('aks', uniqueString(resourceGroup().id))]",
     "_artifactsLocation": "https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master",
     "_extensionScript": "bootstrap.sh",
@@ -278,19 +278,6 @@
               "sourcePortRange": "*",
               "destinationAddressPrefix": "*",
               "destinationPortRange": "22"
-            }
-          },
-          {
-            "name": "allow-auxvm-http",
-            "properties": {
-              "priority": 1001,
-              "protocol": "Tcp",
-              "access": "Allow",
-              "direction": "Inbound",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*",
-              "destinationPortRange": "80"
             }
           }
         ]
