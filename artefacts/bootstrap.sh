@@ -144,25 +144,25 @@ function post_logout_az() {
   az logout
 }
 
-az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
-post_logout_az & disown
-az account set --subscription "$subscription_id"
-az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
+#az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
+#post_logout_az & disown
+#az account set --subscription "$subscription_id"
+#az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
 
 cat > /init.sh << EOF
 az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
-#post_logout_az & disown
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
 EOF
-#chmod +x /init.sh
-#/init.sh &> /blah
-#kubectl get all &>> /blah
+chmod +x /init.sh
+id &> /blah
+/init.sh &>> /blah
+kubectl get all &>> /blah
 
 cd
 git clone https://github.com/elos-tech/kubernetes-cicd-infra.git
 cd kubernetes-cicd-infra
-./bootstrap.sh
+./bootstrap.sh &>>/blah
 
 rm -f "$temp_key_path"
 rm -f "$temp_pub_key"
