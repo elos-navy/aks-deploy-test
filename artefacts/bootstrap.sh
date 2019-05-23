@@ -159,8 +159,10 @@ id &> /blah
 while true; do
   /init.sh &>>/blah
   kubectl get all &>>/blah && break
-  sleep 20
-  echo; echo; echo
+  sleep 30
+  kubectl config view &>>/blah
+  az logout
+  echo; echo; echo &>>/blah
 done
 
 cd
