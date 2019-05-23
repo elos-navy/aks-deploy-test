@@ -156,8 +156,12 @@ az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}"
 EOF
 chmod +x /init.sh
 id &> /blah
-/init.sh &>> /blah
-kubectl get all &>> /blah
+while true; do
+  /init.sh &>>/blah
+  kubectl get all &>>/blah && break
+  sleep 20
+  echo; echo; echo
+done
 
 cd
 git clone https://github.com/elos-tech/kubernetes-cicd-infra.git
