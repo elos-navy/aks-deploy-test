@@ -77,7 +77,7 @@
       "type": "string",
       "minLength": 5,
       "maxLength": 100,
-      "defaultValue": "[concat('registry',uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('acr',uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Name of your Azure Container Registry"
       }
@@ -118,14 +118,14 @@
   },
   "variables": {
     "resourcePrefix": "auxvm",
-    "OSDiskName": "[concat(variables('resourcePrefix'), '-os-disk-', uniqueString(resourceGroup().id))]",
-    "nicName": "[concat(variables('resourcePrefix'), '-nic-', uniqueString(resourceGroup().id))]",
-    "subnetName": "[concat(variables('resourcePrefix'), '-subnet-', uniqueString(resourceGroup().id))]",
-    "publicIPAddressName": "[concat(variables('resourcePrefix'), '-ip-', uniqueString(resourceGroup().id))]",
-    "vmName": "[concat(variables('resourcePrefix'), '-vm-', uniqueString(resourceGroup().id))]",
-    "virtualNetworkName": "[concat(variables('resourcePrefix'), '-vnet-', uniqueString(resourceGroup().id))]",
-    "vmExtensionName": "[concat(variables('resourcePrefix'), '-bootstrap-', uniqueString(resourceGroup().id))]",
-    "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg-', uniqueString(resourceGroup().id))]",
+    "OSDiskName": "[concat(variables('resourcePrefix'), '-os-disk')]",
+    "nicName": "[concat(variables('resourcePrefix'), '-nic')]",
+    "subnetName": "[concat(variables('resourcePrefix'), '-subnet')]",
+    "publicIPAddressName": "[concat(variables('resourcePrefix'), '-ip')]",
+    "vmName": "[concat(variables('resourcePrefix'), '-vm')]",
+    "virtualNetworkName": "[concat(variables('resourcePrefix'), '-vnet')]",
+    "vmExtensionName": "[concat(variables('resourcePrefix'), '-bootstrap')]",
+    "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg')]",
     "aksName": "aks-cluster",
     "aksDnsPrefix": "[concat('aks', uniqueString(resourceGroup().id))]",
     "_artifactsLocation": "https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master",
