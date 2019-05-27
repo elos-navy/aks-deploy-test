@@ -76,7 +76,7 @@
     "acrName": {
       "type": "string",
       "minLength": 5,
-      "maxLength": 50,
+      "maxLength": 100,
       "defaultValue": "[concat('acr-registry-',uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Name of your Azure Container Registry"
