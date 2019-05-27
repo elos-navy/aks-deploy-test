@@ -159,20 +159,24 @@ chmod +x /init.sh
 id &>/blah
 cat ~/.kube/config &>>/blah
 
+COUNTER=0
 while true; do
+  echo $COUNTER >> /blah
+  let COUNTER=$COUNTER+1
+  echo >> /blah
   /init.sh &>>/blah
-  echo >/blah
+  echo >>/blah
   pwd &>>/blah
-  echo >/blah
+  echo >>/blah
   kubectl get all &>>/blah && break
-  echo >/blah
+  echo >>/blah
   bash -c 'kubectl get all' &>>/blah
-  echo >/blah
+  echo >>/blah
   sleep 30
   kubectl config view &>>/blah
-  echo >/blah
+  echo >>/blah
   bash -c 'kubectl config view' &>>/blah
-  echo >/blah
+  echo >>/blah
   cat ~/.kube/config &>>/blah
   az logout
   echo; echo; echo &>>/blah
