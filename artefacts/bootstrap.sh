@@ -1,7 +1,8 @@
 #!/bin/bash
 
-artifacts_location="https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master"
+artifacts_location='https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master'
 sp_environment=Azure
+k8s_bootstrap_git_url='https://github.com/elos-tech/kubernetes-cicd-infra.git'
 
 function print_usage() {
   cat <<EOF
@@ -169,11 +170,13 @@ function post_logout_az() {
 
 cat > /init.sh << EOF
 #!/bin/bash -x
+
 az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
+
 cd /root
-git clone https://github.com/elos-tech/kubernetes-cicd-infra.git
+git clone $k8s_bootstrap_git_url
 cd kubernetes-cicd-infra
 ./bootstrap.sh \
   --jenkins_admin_password "$jenkins_admin_password" \

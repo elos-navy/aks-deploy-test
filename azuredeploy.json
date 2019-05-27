@@ -351,15 +351,15 @@
     }
   ],
   "outputs": {
-    "Admin Username": {
+    "Admin username": {
       "type": "string",
       "value": "[parameters('adminUsername')]"
     },
-    "AuxVM FQDN": {
+    "Auxvm fqdn": {
       "type": "string",
       "value": "[reference(variables('publicIPAddressName')).dnsSettings.fqdn]"
     },
-    "AuxVM URL": {
+    "Auxvm url": {
       "type": "string",
       "value": "[concat('http://', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
     },
@@ -367,11 +367,11 @@
       "type": "string",
       "value": "[concat('ssh -L 8080:localhost:8080 ', parameters('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
     },
-    "Kubernetes Master FQDN": {
+    "Kubernetes master fqdn": {
       "type": "string",
       "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', variables('aksName'))).fqdn]"
     },
-    "ACR Server": {
+    "ACR server": {
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',parameters('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     }
