@@ -155,12 +155,25 @@ az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
 EOF
 chmod +x /init.sh
-id &> /blah
+
+id &>/blah
+cat ~/.kube/config &>>/blah
+
 while true; do
   /init.sh &>>/blah
+  echo >/blah
+  pwd &>>/blah
+  echo >/blah
   kubectl get all &>>/blah && break
+  echo >/blah
+  bash -c 'kubectl get all' &>>/blah
+  echo >/blah
   sleep 30
   kubectl config view &>>/blah
+  echo >/blah
+  bash -c 'kubectl config view' &>>/blah
+  echo >/blah
+  cat ~/.kube/config &>>/blah
   az logout
   echo; echo; echo &>>/blah
 done
