@@ -172,6 +172,8 @@ while true; do
   echo >>/blah
   bash -c 'kubectl get all' &>>/blah
   echo >>/blah
+  sudo -u root kubectl get all &>>/blah
+  echo >>/blah
   sleep 30
   kubectl config view &>>/blah
   echo >>/blah
