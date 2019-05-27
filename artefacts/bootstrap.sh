@@ -150,44 +150,17 @@ function post_logout_az() {
 #az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
 
 cat > /init.sh << EOF
+#!/bin/bash -x
 az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
 az account set --subscription "$subscription_id"
 az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
-EOF
-chmod +x /init.sh
-
-id &>/blah
-cat ~/.kube/config &>>/blah
-
-COUNTER=0
-while true; do
-  echo $COUNTER >> /blah
-  let COUNTER=$COUNTER+1
-  echo >> /blah
-  /init.sh &>>/blah
-  echo >>/blah
-  pwd &>>/blah
-  echo >>/blah
-  kubectl get all &>>/blah && break
-  echo >>/blah
-  bash -c 'kubectl get all' &>>/blah
-  echo >>/blah
-  sudo -u root kubectl get all &>>/blah
-  echo >>/blah
-  sleep 30
-  kubectl config view &>>/blah
-  echo >>/blah
-  bash -c 'kubectl config view' &>>/blah
-  echo >>/blah
-  cat ~/.kube/config &>>/blah
-  az logout
-  echo; echo; echo &>>/blah
-done
-
-cd
+cd /root
 git clone https://github.com/elos-tech/kubernetes-cicd-infra.git
 cd kubernetes-cicd-infra
 ./bootstrap.sh &>>/blah
+EOF
+chmod +x /init.sh
+sudo -u root /init.sh &>/blah
 
 rm -f "$temp_key_path"
 rm -f "$temp_pub_key"
