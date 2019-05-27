@@ -35,6 +35,13 @@
         "description": "The virutal machine size to use. We picked out the sizes with 2 vCPUs, but in real world projects you can choose other sizes as you desired."
       }
     },
+    "auxvmDnsPrefix": {
+      "type": "string",
+      "defaultValue": "[concat('auxvm-',uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "description": "Unique DNS Name prefix for the Public IP used to access the Auxiliary Virtual Machine. Azure will form the final DNS name as '<prefix>.<region>.cloudapp.azure.com'."
+      }
+    },
     "kubernetesVersion": {
       "type": "string",
       "defaultValue": "1.13.5",
@@ -43,13 +50,6 @@
       ],
       "metadata": {
         "description": "The version of the Kubernetes running in AKS."
-      }
-    },
-    "auxvmDnsPrefix": {
-      "type": "string",
-      "defaultValue": "auxvm-1",
-      "metadata": {
-        "description": "Unique DNS Name prefix for the Public IP used to access the Auxiliary Virtual Machine. Azure will form the final DNS name as '<prefix>.<region>.cloudapp.azure.com'."
       }
     },
     "servicePrincipalAppId": {
@@ -77,7 +77,7 @@
       "type": "string",
       "minLength": 5,
       "maxLength": 50,
-      "defaultValue": "lstestregistry",
+      "defaultValue": "[concat('acr-registry-',uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Name of your Azure Container Registry"
       }
@@ -100,6 +100,20 @@
         "Standard",
         "Premium"
       ]
+    },
+    "jenkinsAdminPassword": {
+      "type": "securestring",
+      "defaultValue": "admin",
+      "metadata": {
+        "description": "Admin password for created Jenkins instance."
+      }
+    },
+    "applicationGitUrl": {
+      "type": "string",
+      "defaultValue": "https://github.com/elos-tech/openshift-cicd-app",
+      "metadata": {
+        "description": "Application source GIT repository URL."
+      }
     }
   },
   "variables": {
@@ -191,7 +205,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\" &>/deployment.log')]"
+              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\" --jenkins_admin_password \"', parameters('jenkinsAdminPassword'), '\" --application_git_url \"', parameters('applicationGitUrl'), '\" --registry_name \"', parameters('acrName'), '\" &>/deployment.log')]"
             }
           }
         }
@@ -337,15 +351,15 @@
     }
   ],
   "outputs": {
-    "admin_username": {
+    "Admin Username": {
       "type": "string",
       "value": "[parameters('adminUsername')]"
     },
-    "auxvm_vm_fqdn": {
+    "AuxVM FQDN": {
       "type": "string",
       "value": "[reference(variables('publicIPAddressName')).dnsSettings.fqdn]"
     },
-    "auxvm_url": {
+    "AuxVM URL": {
       "type": "string",
       "value": "[concat('http://', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
     },
@@ -353,11 +367,11 @@
       "type": "string",
       "value": "[concat('ssh -L 8080:localhost:8080 ', parameters('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
     },
-    "kubernetes_master_fqdn": {
+    "Kubernetes Master FQDN": {
       "type": "string",
       "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', variables('aksName'))).fqdn]"
     },
-    "acrLoginServer": {
+    "ACR Server": {
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',parameters('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     }

@@ -17,6 +17,9 @@ Arguments
   --auxvm_fqdn|-jf                 [Required] : Auxilary VM FQDN
   --artifacts_location|-al                      : Url used to reference other scripts/artifacts.
   --sas_token|-st                               : A sas token needed if the artifacts location is private.
+  --jenkins_admin_password
+  --application_git_url
+  --registry_name
 EOF
 }
 
@@ -100,6 +103,18 @@ do
       artifacts_location_sas_token="$1"
       shift
       ;;
+    --jenkins_admin_password)
+      jenkins_admin_password="$1"
+      shift
+      ;;
+    --application_git_url)
+      application_git_url="$1"
+      shift
+      ;;
+    --registry_name)
+      registry_name="$1"
+      shift
+      ;;
     --help|-help|-h)
       print_usage
       exit 13
@@ -117,6 +132,9 @@ throw_if_empty --tenant_id "$tenant_id"
 throw_if_empty --resource_group "$resource_group"
 throw_if_empty --aks_name "$aks_name"
 throw_if_empty --auxvm_fqdn "$auxvm_fqdn"
+throw_if_empty --jenkins_admin_password "$jenkins_admin_password"
+throw_if_empty --application_git_url "$application_git_url"
+throw_if_empty --registry_name "$registry_name"
 
 install_kubectl
 
@@ -157,10 +175,13 @@ az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}"
 cd /root
 git clone https://github.com/elos-tech/kubernetes-cicd-infra.git
 cd kubernetes-cicd-infra
-./bootstrap.sh &>>/blah
+./bootstrap.sh \
+  --jenkins_admin_password "$jenkins_admin_password" \
+  --application_git_url "$application_git_url" \
+  --registry_name "$registry_name"
 EOF
 chmod +x /init.sh
-sudo -u root /init.sh &>/blah
+sudo -u root /init.sh
 
 rm -f "$temp_key_path"
 rm -f "$temp_pub_key"

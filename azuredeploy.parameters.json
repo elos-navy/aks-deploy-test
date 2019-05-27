@@ -22,6 +22,12 @@
       },
       "acrAdminUserEnabled": {
         "value": false
+      },
+      "jenkinsAdminPassword": {
+        "value": "GEN-PASSWORD"
+      },
+      "applicationGitUrl": {
+        "value": "GEN-UNIQUE"
       }
     }
   }
