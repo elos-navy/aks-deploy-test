@@ -279,12 +279,8 @@
       "properties": {
         "kubernetesVersion": "[parameters('kubernetesVersion')]",
         "dnsPrefix": "[variables('aksDnsPrefix')]",
-        "enableRbac": true,
         "addonProfiles": {
           "httpApplicationRouting": {
-            "config": {
-              "HTTPApplicationRoutingZoneName": "elos-cicd-demo.westeurope.aksapp.io"
-            },
             "enabled": true
           }
         },
@@ -352,6 +348,10 @@
     },
     "ACR server": {
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2017-10-01').loginServer]",
+      "type": "string"
+    },
+    "applicationRoutingZone": {
+      "value": "[reference([concat('Microsoft.ContainerService/managedClusters/', parameters('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
       "type": "string"
     }
   }
