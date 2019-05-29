@@ -352,7 +352,7 @@
       "type": "string"
     },
     "applicationRoutingZone": {
-      "value": "[reference(variables('aksName')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
+      "value": "[reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
       "type": "string"
     }
   }
