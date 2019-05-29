@@ -143,31 +143,6 @@ install_az
 
 sudo apt-get install --yes jq
 
-#run_util_script "artefacts/bootstrap-aks.sh" \
-#    --resource_group "$resource_group" \
-#    --aks_name "$aks_name" \
-#    --sp_subscription_id "$subscription_id" \
-#    --sp_client_id "$app_id" \
-#    --sp_client_password "$app_key" \
-#    --sp_tenant_id "$tenant_id" \
-#    --artifacts_location "$artifacts_location" \
-#    --sas_token "$artifacts_location_sas_token"
-
-export bootstrap_aks_pid=$$
-function post_logout_az() {
-  while ps -p "$bootstrap_aks_pid" >/dev/null; do
-    sleep 0.5
-  done
-
-  echo "Logout Azure CLI"
-  az logout
-}
-
-#az login --service-principal -u "$app_id" -p "$app_key" -t "$tenant_id"
-#post_logout_az & disown
-#az account set --subscription "$subscription_id"
-#az aks get-credentials --resource-group "${resource_group}" --name "${aks_name}" --admin
-
 cat > /init.sh << EOF
 #!/bin/bash -x
 
@@ -185,6 +160,7 @@ cd kubernetes-cicd-infra
 EOF
 chmod +x /init.sh
 sudo -u root /init.sh
+
 
 rm -f "$temp_key_path"
 rm -f "$temp_pub_key"
