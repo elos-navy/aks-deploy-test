@@ -351,5 +351,9 @@
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     },
+    "applicationRoutingZone": {
+      "value": "[reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
+      "type": "string"
+    }
   }
 }
