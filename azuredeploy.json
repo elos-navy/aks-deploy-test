@@ -101,7 +101,6 @@
     "vmExtensionName": "[concat(variables('resourcePrefix'), '-bootstrap')]",
     "frontEndNSGName": "[concat(variables('resourcePrefix'), '-nsg')]",
     "aksName": "aks-cluster",
-    "aksId": "[concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]",
     "aksDnsPrefix": "[concat('aks', uniqueString(resourceGroup().id))]",
     "_artifactsLocation": "https://raw.githubusercontent.com/elos-tech/aks-deploy-test/master",
     "_extensionScript": "bootstrap.sh",
@@ -280,9 +279,10 @@
       "properties": {
         "kubernetesVersion": "[parameters('kubernetesVersion')]",
         "dnsPrefix": "[variables('aksDnsPrefix')]",
+        "enableRBAC": "true",
         "addonProfiles": {
           "httpApplicationRouting": {
-            "enabled": true
+            "enabled": "true"
           }
         },
         "agentPoolProfiles": [
@@ -351,9 +351,5 @@
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     },
-    "applicationRoutingZone": {
-      "value": "[reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
-      "type": "string"
-    }
   }
 }
