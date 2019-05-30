@@ -351,8 +351,24 @@
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     },
-    "applicationRoutingZone": {
-      "value": "[reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName]",
+    "Jenkins url": {
+      "value": "[concat('http://jenkins.', [reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName])]",
+      "type": "string"
+    },
+    "Nexus url": {
+      "value": "[concat('http://nexus.', [reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName])]",
+      "type": "string"
+    },
+    "Sonarqube url": {
+      "value": "[concat('http://sonarqube.', [reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName])]",
+      "type": "string"
+    },
+    "Dev application url": {
+      "value": "[concat('http://tasks-dev.', [reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName])]",
+      "type": "string"
+    },
+    "Prod application url": {
+      "value": "[concat('http://tasks-prod.', [reference([concat('Microsoft.ContainerService/managedClusters/', variables('aksName'))]).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName])]",
       "type": "string"
     }
   }
