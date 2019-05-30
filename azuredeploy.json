@@ -272,17 +272,17 @@
       }
     },
     {
-      "apiVersion": "2017-08-31",
+      "apiVersion": "2018-03-31",
       "type": "Microsoft.ContainerService/managedClusters",
-      "location": "[parameters('location')]",
       "name": "[variables('aksName')]",
+      "location": "[parameters('location')]",
       "properties": {
         "kubernetesVersion": "[parameters('kubernetesVersion')]",
         "dnsPrefix": "[variables('aksDnsPrefix')]",
-        "enableRBAC": "true",
+        "enableRBAC": true,
         "addonProfiles": {
           "httpApplicationRouting": {
-            "enabled": "true"
+            "enabled": true
           }
         },
         "agentPoolProfiles": [
