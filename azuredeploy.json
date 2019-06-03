@@ -180,7 +180,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\" --jenkins_admin_password \"', parameters('jenkinsAdminPassword'), '\" --application_git_url \"', parameters('applicationGitUrl'), '\" --registry_name \"', variables('acrName'), '\"')]"
+              "commandToExecute": "[concat('./', variables('_extensionScript'), ' --app_id \"', parameters('servicePrincipalAppId'), '\" --app_key \"', parameters('servicePrincipalAppKey'), '\" --subscription_id \"', subscription().subscriptionId, '\" --tenant_id \"', subscription().tenantId, '\" --resource_group \"', resourceGroup().name, '\" --aks_name \"', variables('aksName'), '\" --auxvm_fqdn \"', reference(variables('publicIPAddressName')).dnsSettings.fqdn, '\" --artifacts_location \"', variables('_artifactsLocation'), '\" --sas_token \"', variables('_artifactsLocationSasToken'), '\" --jenkins_admin_password \"', parameters('jenkinsAdminPassword'), '\" --application_git_url \"', parameters('applicationGitUrl'), '\" --registry_name \"', variables('acrName'), '\" --app_dns_domain \"', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName, '\"')]"
             }
           }
         }
@@ -353,7 +353,23 @@
       "type": "string"
     },
     "Jenkins url": {
-      "value": "[concat('http://jenkins.', [reference(variables('aksId'))].addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('http://jenkins.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "type": "string"
+    },
+    "Sonarqube url": {
+      "value": "[concat('http://sonarqube.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "type": "string"
+    },
+    "Nexus url": {
+      "value": "[concat('http://nexus.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "type": "string"
+    },
+    "Application dev url": {
+      "value": "[concat('http://application-dev.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "type": "string"
+    },
+    "Application prod url": {
+      "value": "[concat('http://application-prod.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     }
   }
