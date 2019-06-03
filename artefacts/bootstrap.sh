@@ -159,7 +159,7 @@ cd kubernetes-cicd-infra
   --registry_name "$registry_name"
 EOF
 chmod +x /init.sh
-sudo -u root /init.sh
+sudo -u root /init.sh &> /deployment.log
 
 
 rm -f "$temp_key_path"
