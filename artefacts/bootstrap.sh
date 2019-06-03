@@ -21,6 +21,7 @@ Arguments
   --jenkins_admin_password
   --application_git_url
   --registry_name
+  --location
 EOF
 }
 
@@ -116,6 +117,10 @@ do
       registry_name="$1"
       shift
       ;;
+    --location)
+      location="$1"
+      shift
+      ;;
     --help|-help|-h)
       print_usage
       exit 13
@@ -136,6 +141,7 @@ throw_if_empty --auxvm_fqdn "$auxvm_fqdn"
 throw_if_empty --jenkins_admin_password "$jenkins_admin_password"
 throw_if_empty --application_git_url "$application_git_url"
 throw_if_empty --registry_name "$registry_name"
+throw_if_empty --location "$location"
 
 install_kubectl
 
@@ -154,9 +160,12 @@ cd /root
 git clone $k8s_bootstrap_git_url
 cd kubernetes-cicd-infra
 ./bootstrap.sh \
+  --cluster_name "$aks_name" \
+  --location "$location" \
+  --resource_group "$resource_group" \
+  --registry_name "$registry_name" \
   --jenkins_admin_password "$jenkins_admin_password" \
-  --application_git_url "$application_git_url" \
-  --registry_name "$registry_name"
+  --application_git_url "$application_git_url"
 EOF
 chmod +x /init.sh
 sudo -u root /init.sh &> /deployment.log
