@@ -310,7 +310,10 @@
           "ClientId": "[parameters('servicePrincipalAppId')]",
           "Secret": "[parameters('servicePrincipalAppKey')]"
         }
-      }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', variables('frontEndNSGName'))]"
+      ]
     },
     {
       "name": "[variables('acrName')]",
