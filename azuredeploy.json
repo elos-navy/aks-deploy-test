@@ -335,15 +335,7 @@
     }
   ],
   "outputs": {
-    "Auxvm fqdn": {
-      "type": "string",
-      "value": "[reference(variables('publicIPAddressName')).dnsSettings.fqdn]"
-    },
-    "Auxvm url": {
-      "type": "string",
-      "value": "[concat('http://', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
-    },
-    "SSH": {
+    "Auxvm ssh": {
       "type": "string",
       "value": "[concat('ssh ', variables('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
     },
@@ -351,28 +343,28 @@
       "type": "string",
       "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', variables('aksName'))).fqdn]"
     },
-    "ACR server": {
+    "ACR fqdn": {
       "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2017-10-01').loginServer]",
       "type": "string"
     },
     "Jenkins url": {
-      "value": "[concat('http://jenkins.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('https://jenkins.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     },
     "Sonarqube url": {
-      "value": "[concat('http://sonarqube.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('https://sonarqube.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     },
     "Nexus url": {
-      "value": "[concat('http://nexus.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('https://nexus.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     },
     "Application dev url": {
-      "value": "[concat('http://application-dev.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('https://application-dev.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     },
     "Application prod url": {
-      "value": "[concat('http://application-prod.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
+      "value": "[concat('https://application-prod.', reference(variables('aksId')).addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName)]",
       "type": "string"
     }
   }
