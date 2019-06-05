@@ -283,7 +283,7 @@
         "enableRBAC": true,
         "addonProfiles": {
           "httpApplicationRouting": {
-            "enabled": false
+            "enabled": true
           }
         },
         "agentPoolProfiles": [
