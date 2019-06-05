@@ -281,11 +281,6 @@
         "kubernetesVersion": "[parameters('kubernetesVersion')]",
         "dnsPrefix": "[variables('aksDnsPrefix')]",
         "enableRBAC": true,
-        "addonProfiles": {
-          "httpApplicationRouting": {
-            "enabled": true
-          }
-        },
         "agentPoolProfiles": [
           {
             "name": "agentpool",
